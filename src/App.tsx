@@ -11,23 +11,23 @@ import {
 
 declare const window: Window &
 typeof globalThis & {
- test: (arg:string) => void;
+ test: (arg:any, arg2:any) => void;
 };
 
 import dagre from '@dagrejs/dagre';
 
 import '@xyflow/react/dist/style.css';
 
-import { initialNodes, initialEdges } from './initialElements';
+import { getNodes, getEdges } from './initialElements';
 
 const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 
-const nodeWidth = 172;
-const nodeHeight = 36;
+const nodeWidth = 150;
+const nodeHeight = 100;
 
 const getLayoutedElements = (nodes: any[], edges: any[], direction = 'TB') => {
   const isHorizontal = direction === 'LR';
-  dagreGraph.setGraph({ rankdir: direction });
+  dagreGraph.setGraph({ rankdir: direction, nodesep: 10, ranksep: 200});
 
   nodes.forEach((node) => {
     dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
@@ -60,8 +60,8 @@ const getLayoutedElements = (nodes: any[], edges: any[], direction = 'TB') => {
 };
 
 const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-  initialNodes,
-  initialEdges,
+  getNodes("foo", 0,0),
+  getEdges(),
 );
 
 const Flow = () => {
@@ -89,8 +89,22 @@ const Flow = () => {
     [nodes, edges],
   );
 
-  window.test = function(test: any) {
-    console.log('updateFlow called with:', test);
+  function layout(n: any, e: any)
+  {
+    console.log('layout called with:', n, e);
+    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(n,e);
+    setNodes([...layoutedNodes]);
+    setEdges([...layoutedEdges]);
+    console.log('layout done got:', layoutedNodes, layoutedEdges);
+  }
+
+  window.test = function(n: any, e: any) {
+    layout(n,e);
+  }
+
+  function argle() : void
+  {
+    layout(getNodes("bob", 4, 0), getEdges());
   }
 
   return (
@@ -110,6 +124,9 @@ const Flow = () => {
         </button>
         <button className="xy-theme__button" onClick={() => onLayout('LR')}>
           horizontal layout
+        </button>
+        <button className="xy-theme__button" onClick={() => argle()}>
+          sdafdsfds
         </button>
       </Panel>
       <Background />
