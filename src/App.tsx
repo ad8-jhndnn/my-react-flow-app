@@ -13,8 +13,8 @@ import '@xyflow/react/dist/style.css';
 
 import { getSomeNodes, getSomeEdges } from './initialElements';
 
-let initNodes = getSomeNodes("bob", 4, 4);
-let initEdges = getSomeEdges("bob", 4, 4);
+let initNodes = getSomeNodes("bob", 0, 0);
+let initEdges = getSomeEdges("bob", 0, 0);
 
 import useLayoutNodes from './useLayoutNodes';
 
@@ -82,9 +82,9 @@ function onLayout(direction: 'TB' | 'LR') {
         <button className="xy-theme__button" onClick={() => onLayout('LR')}>
           horizontal layout
         </button>
-        <button className="xy-theme__button" onClick={() => argle()}>
+        {/* <button className="xy-theme__button" onClick={() => argle()}>
           sdafdsfds
-        </button>
+        </button> */}
       </Panel>
 
       <Background />
