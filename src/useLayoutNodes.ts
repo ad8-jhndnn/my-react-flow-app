@@ -7,14 +7,6 @@ import {
 
 import { type ElkNode } from './initialElements';
 
-// elk layouting options can be found here:
-// https://www.eclipse.org/elk/reference/algorithms/org-eclipse-elk-layered.html
-
-interface ElkLayoutOptions {
-  'elk.direction'?: string;
-  [key: string]: unknown;
-}
-
 const elk = new ELK();
 
 const getLayoutedElements = async (nodes: ElkNode[], edges: Edge[], options: LayoutOptions) => {
@@ -69,7 +61,7 @@ export default function useLayoutNodes(options: LayoutOptions = {}) {
     if (nodesInitialized) {
       const layoutNodes = async () => {
         const layoutedNodes = await getLayoutedElements(getNodes() as ElkNode[], getEdges(), options);
- 
+ //@ts-expect-error
         if(layoutedNodes) setNodes(layoutedNodes);
         fitView();
       };

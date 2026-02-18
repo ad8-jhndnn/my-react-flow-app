@@ -37,12 +37,13 @@ function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges);
 
-function argle() {
-  setNodes(getSomeNodes("bob", 10, 5));
-  setEdges(getSomeEdges("bob", 10, 5));
-}
+// function argle() {
+//   setNodes(getSomeNodes("bob", 10, 5));
+//   setEdges(getSomeEdges("bob", 10, 5));
+// }
 
-
+// elk layouting options can be found here:
+// https://www.eclipse.org/elk/reference/algorithms/org-eclipse-elk-layered.html
 function onLayout(direction: 'TB' | 'LR') {
   layoutOptions = {
     'elk.algorithm': 'layered',
